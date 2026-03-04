@@ -17,6 +17,5 @@ template:
   outdir: .
   skip_features:
     - igenomes
-    - fastqc
     - gpu
   is_nfcore: true
