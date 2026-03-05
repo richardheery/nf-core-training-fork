@@ -31,6 +31,7 @@ workflow TRAINING {
     //
     ch_samplesheet = ch_samplesheet.map({meta, reads -> [ meta, reads, [] ]})
 
+    //
     ch_samplesheet.view()
 
     FASTP(
