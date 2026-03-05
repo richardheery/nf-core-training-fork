@@ -3,6 +3,7 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+include { FASTP } from '../modules/nf-core/fastp/main'
 include { FASTQC                 } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
@@ -24,11 +25,26 @@ workflow TRAINING {
 
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
+
+    //
+    // MODULE: Run fastp
+    //
+    ch_samplesheet = ch_samplesheet.map({meta, reads -> [ meta, reads, [] ]})
+
+    ch_samplesheet.view()
+
+    FASTP(
+        ch_samplesheet, // [ meta, reads ]
+        [],
+        [],
+        []
+    )
+
     //
     // MODULE: Run FastQC
     //
     FASTQC (
-        ch_samplesheet
+        FASTP.out.reads
     )
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())

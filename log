@@ -1,0 +1,90 @@
+N E X T F L O W  ~  version 25.10.4
+Launching `main.nf` [festering_nightingale] DSL2 - revision: 4e3952cb64
+
+-[2m----------------------------------------------------[0m-
+                                        [0;32m,--.[0;30m/[0;32m,-.[0m
+[0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+[0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+[0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+                                        [0;32m`._,._,'[0m
+[0;35m  nf-core/training 1.0.0dev[0m
+-[2m----------------------------------------------------[0m-
+
+Input/output options
+  input                     : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
+  outdir                    : results
+
+Institutional config options
+  config_profile_name       : Test profile
+  config_profile_description: Minimal test dataset to check pipeline function
+
+Generic options
+  trace_report_suffix       : 2026-03-05_15-27-46
+
+Core Nextflow options
+  runName                   : festering_nightingale
+  containerEngine           : docker
+  launchDir                 : /workspaces/nf-core-training-fork
+  workDir                   : /workspaces/nf-core-training-fork/work
+  projectDir                : /workspaces/nf-core-training-fork
+  userName                  : root
+  profile                   : test,docker
+  configFiles               : /workspaces/nf-core-training-fork/nextflow.config
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+------------------------------------------------------
+
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/training/blob/master/CITATIONS.md
+
+[05/d4ed12] Submitted process > NFCORE_TRAINING:TRAINING:FASTP (SAMPLE2_PE)
+[02/3dcc01] Submitted process > NFCORE_TRAINING:TRAINING:FASTP (SAMPLE1_PE)
+[6e/b5c9ec] Submitted process > NFCORE_TRAINING:TRAINING:FASTP (SAMPLE3_SE)
+[6b/5d94a4] Submitted process > NFCORE_TRAINING:TRAINING:FASTQC (SAMPLE2_PE)
+ERROR ~ Error executing process > 'NFCORE_TRAINING:TRAINING:FASTP (SAMPLE3_SE)'
+
+Caused by:
+  Process `NFCORE_TRAINING:TRAINING:FASTP (SAMPLE3_SE)` terminated with an error exit status (1)
+
+
+Command executed:
+
+  [ ! -f  SAMPLE3_SE.fastq.gz ] && ln -sf sample1_R1.fastq.gz sample2_R1.fastq.gz SAMPLE3_SE.fastq.gz
+  
+  fastp \
+      --in1 SAMPLE3_SE.fastq.gz \
+      --out1 SAMPLE3_SE.fastp.fastq.gz \
+      --thread 4 \
+      --json SAMPLE3_SE.fastp.json \
+      --html SAMPLE3_SE.fastp.html \
+       \
+       \
+       \
+      2>| >(tee SAMPLE3_SE.fastp.log >&2)
+
+Command exit status:
+  1
+
+Command output:
+  (empty)
+
+Command error:
+  ln: target 'SAMPLE3_SE.fastq.gz': No such file or directory
+
+Work dir:
+  /workspaces/nf-core-training-fork/work/6e/b5c9ecd46a1c51c19919e101cc8844
+
+Container:
+  community.wave.seqera.io/library/fastp:1.0.1--c8b87fe62dcc103c
+
+Tip: you can try to figure out what's wrong by changing to the process work dir and showing the script file named `.command.sh`
+
+ -- Check '.nextflow.log' file for details
+Execution cancelled -- Finishing pending tasks before exit
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+-[0;35m[nf-core/training][0;31m Pipeline completed with errors[0m-
